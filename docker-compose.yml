@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  postgis:
+    image: postgis/postgis
+    container_name: geoserver_postgis
+    restart: always
+    ports:
+      - 5432:5432
+    volumes: 
+      - dbGeoSeverVolume:/var/lib/postgresql/data/
+    networks: 
+      - geoServerNetwork
+    environment: 
+      POSTGRES_PASSWORD: ${PSQL_PSW}
+      POSTGRES_USER: ${PSQL_USER}
+      POSTGRES_DB: ${PSQL_DB}
+
+  geoserver:
+    build: ./geoserver
+    container_name: geoserver
+    restart: always
+    ports: 
+      - 8080:8080
+    volumes: 
+      - ./geoserver/data:/usr/share/geoserver/data_dir
+    networks: 
+      - geoServerNetwork
+
+
+volumes:
+  dbGeoSeverVolume:
+  geoserver_data_dir:
+
+networks:
+  geoServerNetwork:
+    driver: "bridge"

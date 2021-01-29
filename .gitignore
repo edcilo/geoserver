@@ -1,3 +1,4 @@
 .env
 
-./geoserver/data/*
+/geoserver/app/*
+/geoserver_281/app/*

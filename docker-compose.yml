@@ -23,7 +23,18 @@ services:
     ports: 
       - 8080:8080
     volumes: 
-      - ./geoserver/data:/usr/share/geoserver/data_dir
+      - ./geoserver/app:/usr/share/geoserver
+    networks: 
+      - geoServerNetwork
+
+  geoserver_281:
+    build: ./geoserver_281
+    container_name: geoserver_281
+    restart: always
+    ports:
+      - 8081:8080
+    volumes:
+      - ./geoserver_281/app:/usr/share/geoserver
     networks: 
       - geoServerNetwork
 
